@@ -1,28 +1,31 @@
 <template>
+  <div>
     <div>
-        <div>
-                <van-uploader v-model="fileList" multiple />
-        </div>
+      <van-uploader  :after-read="afterRead">
+        <img src="../assets/logo.png" class="img-class" ref="imgS"/>
+        </van-uploader>
     </div>
+  </div>
 </template>
-
-
-<script>
-    import Vue from 'vue';
-import { Uploader } from 'vant';
-
-Vue.use(Uploader);
-export default {
+ <script>
+  import Vue from 'vue';
+  import { Uploader } from 'vant';
+   Vue.use(Uploader);
+  export default {
     data() {
-    return {
-      fileList: [
-        { url: 'https://img.yzcdn.cn/vant/cat.jpeg' },
-        // Uploader 根据文件后缀来判断是否为图片文件
-        // 如果图片 URL 中不包含类型信息，可以添加 isImage 标记来声明
-        { url: 'https://cloud-image', isImage: true }
-      ]
+      return {
+        // fileSrc: undefined
+      }
+    },
+    mounted() {
+
+    },
+    methods: {
+      afterRead(file) {
+        // 此时可以自行将文件上传至服务器
+        console.log(file.content);
+        this.$refs.imgS.src = file.content
+      }
     }
   }
-
-}
 </script>

@@ -11,6 +11,7 @@ import mock from 'mockjs'
 import axius from 'axios'
 import vant from 'vant';
 import 'vant/lib/index.css';
+import './assets/iconfont/iconfont.css'
 import {
   Alert,
   Confirm,
@@ -18,6 +19,9 @@ import {
 } from 'wc-messagebox'
 import 'wc-messagebox/style.css'
 import store from './store'
+import LyTab from 'ly-tab'
+
+Vue.use(LyTab)
 Vue.use(store)
 Vue.use(vant)
 Vue.use(ElementUI)
@@ -25,6 +29,11 @@ Vue.use(VueAMap)
 Vue.prototype.axius = axius
 Vue.prototype.VueAMap = VueAMap
 Vue.prototype.mock = mock
+
+// 判断是否在测试环境下  启动 mock
+if (process.env.NODE_ENV === 'development') {
+  require('./mock') // simulation data
+}
 // VueAMap.initAMapApiLoader({
 //   key: 'c757e07cf2be665408ef5fb8c0dc4912',
 //   plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType',
@@ -74,9 +83,7 @@ Vue.use(Alert, AlertOptions)
 Vue.use(Confirm, ConfirmOptions)
 Vue.use(Toast, duration)
 Vue.config.productionTip = false
-router.beforeEach((to,from,next)=>{
-
-
+router.beforeEach((to, from, next) => {
   let pathList = [
     "/blank",
     "/",
@@ -86,14 +93,16 @@ router.beforeEach((to,from,next)=>{
     return;
   }
   let userid = localStorage.getItem('userId');
-  if(!userid && to.meta && to.meta.requiresAuth) {
-
-    next({ path: '/' });
+  if (!userid && to.meta && to.meta.requiresAuth) {
+    next({
+      path: '/'
+    });
     return;
   }
-
   if (userid && (!to.meta || !to.meta.requiresAuth)) {
-    next({ path: '/blank' });
+    next({
+      path: '/blank'
+    });
     return;
   }
   next()

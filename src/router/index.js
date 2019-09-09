@@ -145,7 +145,8 @@ export default new Router({
       path: '/test',
       name: 'test',
       component: test
-    }, {
+    },
+    {
       path: '/cascader',
       name: 'cascader',
       component: cascader

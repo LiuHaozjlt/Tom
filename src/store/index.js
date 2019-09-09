@@ -21,7 +21,7 @@ export default new Vuex.Store({
       return state.showLoading;
     },
     parameter(state){
-      console.log(this)
+
 
       return  state.targetUser
     }
@@ -44,9 +44,9 @@ export default new Vuex.Store({
     changeCity(state, value) {
       // state.targetUser = parseInt(localStorage.getItem('value'))
       state.targetUser=Number(value);
-      //我怀疑这个文件没生效   这么多报错
+
     },
-    count(state,value){m
+    count(state,value){
            state.targetUser = parseInt(localStorage.getItem('value'))
     },
     increment(state) {

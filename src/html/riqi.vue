@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="swiper-container" ref="swiper" style="border:3px solid red; box-sizing: content-box;">
-            <div class="swiper-wrapper" >
+            <div class="swiper-wrapper">
                 <div class="swiper-slide" style="">
                     <div>
                         <p>Slide 1</p>
@@ -27,6 +27,7 @@
                 {{item}}
             </div>
         </div>
+        <van-switch v-model="checked" />
         <!-- <div id="app">
             <button @click="ce">ces</button> <button @click="jian">jian</button>
             <mu-container>
@@ -52,6 +53,8 @@
     import { Picker } from 'muse-ui'
     import 'swiper/dist/css/swiper.css';
     import swiper from 'swiper'
+    import { Switch } from 'vant';
+    Vue.use(Switch);
     Vue.use(Picker)
     Vue.use(DropdownMenu).use(DropdownItem);
     Vue.use(Loading);
@@ -61,7 +64,8 @@
     export default {
         data() {
             return {
-                text:[],
+                text: [],
+                checked: true,
                 date3: new Date(),
                 date4: new Date(),
                 price: 150,
@@ -81,23 +85,23 @@
         },
         created() {
             // this.text= this.$route.query.text;
-            let list=JSON.parse(localStorage.getItem("txtList"));
-            this.text=list;
+            let list = JSON.parse(localStorage.getItem("txtList"));
+            this.text = list;
             this.service()
         },
         mounted() {
-			const self = this;
-            setTimeout(function(){
+            const self = this;
+            setTimeout(function () {
                 const height = self.$refs.swiper.children[0].children[0].children[0].clientHeight;
                 self.$refs.swiper.style.height = `${height}px`;
-                new Swiper ('.swiper-container', {
+                new Swiper('.swiper-container', {
                     direction: 'vertical',
                     height,
                     autoplay: 1000,
                     slidesPerView: 1,
                 });
-            },0);
-		},
+            }, 0);
+        },
         methods: {
             ce() {
                 this.date3 = this.date3.setDate(this.date3.getDate() - 1);
@@ -172,9 +176,8 @@
     }
 </script>
 <style scoped>
-    .swiper-container {
-       }
-       .swiper-slide p {
-           line-height: 10px
-       }
-   </style>
+    .swiper-container {}
+    .swiper-slide p {
+        line-height: 10px
+    }
+</style>
