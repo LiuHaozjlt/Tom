@@ -1,7 +1,7 @@
 <template>
     <div>
         <div :class={leiming:dingding}>
-            元素1
+            元素1123
         </div>
         <div class="yuansu2">
             {{num}}
