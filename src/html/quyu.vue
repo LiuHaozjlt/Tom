@@ -53,8 +53,7 @@
                 this.axius.get('https://www.tianqiapi.com/api/?appid=95423573&appsecret=IQNpU66i&version=v6' ).then(function(reponse){
                     that.isWeater =  true
                     let data = reponse.data
-                    console.log(data.wea)
-                    if(data.wea.indexOf('晴') > -1){
+                     if(data.wea.indexOf('晴') > -1){
                         that.weaterVal = 'icon-qing'
                     } else if(data.wea.indexOf('暴雨') > -1){
                         that.weaterVal = 'icon-baoyu'

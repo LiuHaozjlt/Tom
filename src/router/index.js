@@ -36,6 +36,7 @@ import tandaojishi from '../html/tandaojishi.vue'
 import tagtitle from '../html/tagtitle.vue'
 import shuru from '../html/shuru.vue'
 import riqi from '../html/riqi.vue'
+import list from '../html/list.vue'
 Vue.use(Router)
 export default new Router({
   routes: [{
@@ -125,6 +126,11 @@ export default new Router({
       path: '/testA',
       name: 'testA',
       component: testA
+    },
+    {
+      path: '/list',
+      name: 'list',
+      component: list
     },
     {
       path: '/chuanicon',

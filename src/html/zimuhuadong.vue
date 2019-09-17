@@ -54,7 +54,7 @@
         }
         this.list.push(obj); //把对象添加到数组里面，然后渲染到页面
       }
-      console.log(this.list)
+
       this.getHourData()
     },
     methods: {
@@ -63,7 +63,7 @@
       },
       getCityInfoSucc(res) {
         this.cities = res.data.city
-        console.log(res.data)
+
       },
       handleLetterChang(letter) { // 接受子组件传过来的
         //            console.log(letter)

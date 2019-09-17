@@ -14,7 +14,9 @@ export default new Vuex.Store({
     },
     showLoading: false,
     porpval: [1, 2, 3, 5, 6, 7, 8],
-    targetUser: 0
+    targetUser: 0,
+
+    addr:""
   },
   getters: {
     showLoading(state) {
@@ -22,13 +24,16 @@ export default new Vuex.Store({
     },
     parameter(state){
 
-
       return  state.targetUser
     }
 
 
   },
   mutations: {
+    addr(state,data){
+      state.addr = data;
+    },
+
     jia(state,data){
       // localStorage.setItem('mydata',JSON.stringify(data))
       state.targetUser = data

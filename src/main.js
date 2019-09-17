@@ -12,6 +12,12 @@ import axius from 'axios'
 import vant from 'vant';
 import 'vant/lib/index.css';
 import './assets/iconfont/iconfont.css'
+import Mint from 'mint-ui'
+import VueI18n from 'vue-i18n'
+
+import 'mint-ui/lib/style.css'
+
+
 import {
   Alert,
   Confirm,
@@ -20,27 +26,31 @@ import {
 import 'wc-messagebox/style.css'
 import store from './store'
 import LyTab from 'ly-tab'
+Vue.use(VueI18n)
 
 Vue.use(LyTab)
 Vue.use(store)
 Vue.use(vant)
+Vue.use(Mint);
 Vue.use(ElementUI)
 Vue.use(VueAMap)
 Vue.prototype.axius = axius
 Vue.prototype.VueAMap = VueAMap
 Vue.prototype.mock = mock
+const i18n = new VueI18n({
+  locale: 'zh-CN', // 语言标识
+  //this.$i18n.locale // 通过切换locale的值来实现语言切换
+  messages: {
+    'zh-CN': require('./common/lang/zh.js'), // 中文语言包
+    'en-US': require('./common/lang/en.js') // 英文语言包
+  }
+})
 
-// 判断是否在测试环境下  启动 mock
+
 if (process.env.NODE_ENV === 'development') {
   require('./mock') // simulation data
 }
-// VueAMap.initAMapApiLoader({
-//   key: 'c757e07cf2be665408ef5fb8c0dc4912',
-//   plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType',
-//     'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geolocation', 'AMap.Geocoder'
-//   ],
-//   v: '1.4.4'
-// });
+
 VueAMap.initAMapApiLoader({
   key: 'c757e07cf2be665408ef5fb8c0dc4912',
   plugin: [
@@ -77,7 +87,7 @@ let ConfirmOptions = {
 }
 let duration = {
   durtaion: 200,
-  location: 'center|top ' // 如果不传递, 默认在底部, 如果传递, 就必须要有值
+  location: 'center|top '
 }
 Vue.use(Alert, AlertOptions)
 Vue.use(Confirm, ConfirmOptions)
@@ -99,34 +109,25 @@ router.beforeEach((to, from, next) => {
     });
     return;
   }
-  if (userid && (!to.meta || !to.meta.requiresAuth)) {
+  if (userid && (!to.meta || !to.meta.requiresAuth) && to.path != "/chuanicon") {
     next({
       path: '/blank'
     });
     return;
   }
+  if (!userid && (to.path !== "/demoA" && to.path !== "/demoB")) {
+    next({
+      path: '/'
+    });
+    return;
+  }
   next()
 })
-// router.beforeEach((to, from, next) => {
-//   if(to.meta.auth) { //是否验证
-//       if(window.localStorage.access_token) { //是否登录
-//           next()
-//       } else { //未登录则跳转到登录页面
-//           next({
-//               name: 'login',
-//               query: {
-//                   redirect: to.fullPath
-//               }
-//           })
-//       }
-//   } else {
-//       next()
-//   }
-// })
-// 页面初始化存值
+
 localStorage.setItem("title", "测试标题");
 new Vue({
   el: '#app',
+  i18n, // 不要忘记
   router,
   store,
   components: {
